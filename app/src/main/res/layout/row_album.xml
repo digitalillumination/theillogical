@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <import type="dev.doyeong.theillogical.models.AlbumModel" />
+
+        <variable
+            name="album"
+            type="AlbumModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="8dp">
+        <ImageView
+            android:id="@+id/album_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@android:color/black"
+            />
+        <TextView
+            android:id="@+id/album_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{album.shortTitle}"
+            android:textColor="@android:color/black"
+            android:textSize="14dp"
+            />
+        <TextView
+            android:id="@+id/album_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{album.artist}"
+            />
+
+    </LinearLayout>
+</layout>
