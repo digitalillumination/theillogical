@@ -43,10 +43,9 @@ public class HomeFragment extends Fragment {
         binding.albumRecyclerView.setAdapter(recyclerAdapter);
         binding.setAlbumList(albumItems);
 
-        albumItems.add(new AlbumModel("aaa", "Enter The Dil Clan", "Dil", "http://dil.com/"));
-        albumItems.add(new AlbumModel("aaa", "Enter The Dil Clan PT. II", "Dil", "http://dil.com/"));
-        albumItems.add(new AlbumModel("aaa", "권병옥", "KBO", "http://dil.com/"));
-        albumItems.add(new AlbumModel("aaa", "FLEX PART 1: 권병옥의 스위스 계좌", "KBO", "http://dil.com/"));
+        albumItems.add(new AlbumModel("aaa", "Enter The Dil Clan", "Dil", "https://picsum.photos/200"));
+        albumItems.add(new AlbumModel("aaa", "Enter The Dil Clan PT. II", "Dil", "https://picsum.photos/200"));
+        albumItems.add(new AlbumModel("aaa", "KBO League", "KBO", "https://picsum.photos/200"));
         return binding.getRoot();
     }
 
