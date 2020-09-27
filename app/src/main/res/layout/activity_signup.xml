@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.login.SignupActivity">
+    <data>
+        <import type="android.view.View" />
+        
+        <variable
+            name="onProgress"
+            type="boolean" />
+        <variable
+            name="userId"
+            type="String" />
+        <variable
+            name="password"
+            type="String" />
+        <variable
+            name="passwordAccept"
+            type="String" />
+        <variable
+            name="username"
+            type="String" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/text_signup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="84dp"
+            android:layout_marginStart="24dp"
+            android:text="회원가입"
+            android:textColor="@android:color/black"
+            />
+        <LinearLayout
+            android:id="@+id/layout_signup_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_signup_title"
+            android:orientation="vertical"
+            android:padding="24dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="user_id"
+                android:hint="아이디"
+                android:inputType="text"
+                android:text="@={userId}"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호"
+                android:layout_marginTop="16dp"
+                android:autofillHints="password"
+                android:inputType="textPassword"
+                android:text="@={password}"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호 확인"
+                android:layout_marginTop="16dp"
+                android:autofillHints="password_accept"
+                android:inputType="textPassword"
+                android:text="@={passwordAccept}"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="아티스트명"
+                android:layout_marginTop="16dp"
+                android:autofillHints="username"
+                android:inputType="text"
+                android:text="@={username}"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_signup_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_signup_form"
+            android:layout_marginHorizontal="24dp"
+            android:text="회원가입"
+            android:clickable="@{!onProgress}"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
