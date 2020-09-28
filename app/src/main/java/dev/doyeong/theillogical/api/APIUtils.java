@@ -41,4 +41,10 @@ public class APIUtils {
     public static boolean isLogined(Context context) {
         return getLoginToken(context) != null;
     }
+    public static User getUser(Context context) {
+        String token = getLoginToken(context);
+        if (token == null) return null;
+
+        return new User(token, context);
+    }
 }

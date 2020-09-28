@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import dev.doyeong.theillogical.R;
+import dev.doyeong.theillogical.api.APIUtils;
 import dev.doyeong.theillogical.databinding.FragmentPlaylistBinding;
 import dev.doyeong.theillogical.ui.login.LoginActivity;
 
@@ -36,7 +37,7 @@ public class PlaylistFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_playlist, container, false);
-        binding.setIsLogin(false);
+        binding.setIsLogin(APIUtils.isLogined(getContext()));
 
         Button loginButton = binding.playlistLoginBtn;
         loginButton.setOnClickListener(view -> {

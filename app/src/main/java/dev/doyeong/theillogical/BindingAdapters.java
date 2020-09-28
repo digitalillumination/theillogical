@@ -12,5 +12,9 @@ public class BindingAdapters {
         if (link == null || link.isEmpty()) return;
         Glide.with(view).load(link).into(view);
     }
-
+    @BindingAdapter("circleImageUrl")
+    public static void setCircleImageUrl(ImageView view, String link) {
+        if (link == null || link.isEmpty()) return;
+        Glide.with(view).load(link).circleCrop().into(view);
+    }
 }

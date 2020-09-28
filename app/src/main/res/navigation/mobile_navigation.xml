@@ -16,4 +16,10 @@
         android:name="dev.doyeong.theillogical.ui.playlist.PlaylistFragment"
         android:label="플레이리스트"
         tools:layout="@layout/fragment_playlist" />
+    <fragment
+        android:id="@+id/navigation_my_profile"
+        android:name="dev.doyeong.theillogical.ui.profile.ProfileFragment"
+        android:label="프로필"
+        tools:layout="@layout/fragment_playlist"
+        />
 </navigation>

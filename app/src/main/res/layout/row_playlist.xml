@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="playlist"
+            type="dev.doyeong.theillogical.models.PlaylistModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <ImageView
+            android:id="@+id/image_playlist_row"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:imageUrl="@{playlist.imageUrl}"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toEndOf="@id/image_playlist_row"
+            app:layout_constraintTop_toTopOf="@id/image_playlist_row"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginStart="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{playlist.name}"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{playlist.artistsFormatted}"
+                />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
