@@ -2,6 +2,7 @@ package dev.doyeong.theillogical.api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import dev.doyeong.theillogical.R;
 import okhttp3.OkHttpClient;
@@ -10,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
     private Retrofit retrofit = null;
-    private static APIClient instance = null;
 
     private APIClient(Context context) {
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -19,7 +19,6 @@ public class APIClient {
         OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
 
         String token = APIUtils.getLoginToken(context);
-
         if (token != null) {
             AuthInterceptor interceptor = new AuthInterceptor(token);
 
@@ -35,8 +34,7 @@ public class APIClient {
     }
 
     public static APIClient getInstance(Context context) {
-        if (instance == null) instance = new APIClient(context);
-        return instance;
+        return new APIClient(context);
     }
     public static APIInterface getAPI(Context context) {
         return getInstance(context).getRetrofit().create(APIInterface.class);
