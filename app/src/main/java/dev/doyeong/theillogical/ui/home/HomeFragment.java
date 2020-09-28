@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        apiInterface = APIClient.getInstance(getContext()).getRetrofit().create(APIInterface.class);
+        apiInterface = APIClient.getAPI(getContext());
 
         recyclerLayoutManager = new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false);
         binding.albumRecyclerView.setLayoutManager(this.recyclerLayoutManager);

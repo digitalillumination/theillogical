@@ -1,5 +1,6 @@
 package dev.doyeong.theillogical.api;
 
+import dev.doyeong.theillogical.models.LoginRequestModel;
 import dev.doyeong.theillogical.models.SignUpRequestModel;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -15,5 +16,9 @@ public interface APIInterface {
     @POST("api/v1/user")
     Call<ResponseBody> createUser(
             @Body SignUpRequestModel body
+    );
+    @POST("api/v1/user/issue")
+    Call<ResponseBody> createToken(
+            @Body LoginRequestModel body
     );
 }

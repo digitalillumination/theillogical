@@ -20,6 +20,7 @@ import java.io.IOException;
 import dev.doyeong.theillogical.R;
 import dev.doyeong.theillogical.api.APIClient;
 import dev.doyeong.theillogical.api.APIInterface;
+import dev.doyeong.theillogical.api.APIUtils;
 import dev.doyeong.theillogical.databinding.ActivitySignupBinding;
 import dev.doyeong.theillogical.models.SignUpRequestModel;
 import okhttp3.MediaType;
@@ -67,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
         builder.create().show();
     }
     private void createUser(String userId, String username, String password) {
-        APIInterface api = APIClient.getInstance(this).getRetrofit().create(APIInterface.class);
+        APIInterface api = APIClient.getAPI(this);
         SignUpRequestModel model = new SignUpRequestModel(userId, password, username);
 
         Call<ResponseBody> call = api.createUser(model);
@@ -79,18 +80,7 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                try {
-                    if (response.errorBody() == null) {
-                        alertError("오류가 발생했습니다. 다시 시도해주세요.");
-                        return;
-                    }
-                    String body = response.errorBody().string();
-                    JSONObject object = new JSONObject(body);
-
-                    alertError(object.getString("message"));
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
+                alertError(APIUtils.getErrorMessage(response));
             }
 
             @Override
