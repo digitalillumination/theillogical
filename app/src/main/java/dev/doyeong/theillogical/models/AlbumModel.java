@@ -1,22 +1,24 @@
 package dev.doyeong.theillogical.models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
 public class AlbumModel implements Serializable {
-    private String imageUrl;
+    private String image;
     private String title;
     private String artist;
     private String id;
 
-    public AlbumModel(String id, String title, String artist, String imageUrl) {
+    public AlbumModel(String id, String title, String artist, String image) {
         this.id = id;
         this.title = title;
         this.artist = artist;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageId() {
+        return this.image;
     }
 
     public String getTitle() {
@@ -36,10 +38,11 @@ public class AlbumModel implements Serializable {
         return id;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "AlbumModel{" +
-                "imageUrl='" + imageUrl + '\'' +
+                "image='" + image + '\'' +
                 ", title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
                 ", id='" + id + '\'' +

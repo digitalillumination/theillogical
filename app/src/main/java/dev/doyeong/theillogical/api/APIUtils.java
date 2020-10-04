@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import dev.doyeong.theillogical.R;
 import retrofit2.Response;
@@ -46,5 +48,17 @@ public class APIUtils {
         if (token == null) return null;
 
         return new User(token, context);
+    }
+    public static String getURLFromPath(Context context, String path) {
+        try {
+            URL url = new URL(context.getString(R.string.api_url));
+            URL pathURL = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
+
+            return pathURL.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

@@ -5,13 +5,7 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Base64;
-
-import dev.doyeong.theillogical.R;
 
 public class User {
     private String token;
@@ -55,15 +49,6 @@ public class User {
     }
 
     public String getProfileImageURL() {
-        try {
-            URL url = new URL(context.getString(R.string.api_url));
-            URL profileURL = new URL(url.getProtocol(), url.getHost(), url.getPort(), "/api/v1/user/" + this.id + "/profile_image");
-
-            return profileURL.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return APIUtils.getURLFromPath(this.context, "/api/v1/user/" + this.id + "/profile_image");
     }
 }
