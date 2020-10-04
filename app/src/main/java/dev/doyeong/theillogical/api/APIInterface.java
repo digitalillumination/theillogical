@@ -12,10 +12,15 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface APIInterface {
     @GET("api/v1/album")
     Call<ResponseBody> getAlbumList();
+    @GET("api/v1/album/{id}")
+    Call<ResponseBody> getAlbum(
+            @Path("id") String id
+    );
     @POST("api/v1/user")
     Call<ResponseBody> createUser(
             @Body SignUpRequestModel body

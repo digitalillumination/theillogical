@@ -8,10 +8,10 @@ public class AlbumModel implements Serializable {
     private String image;
     private String title;
     private String artist;
-    private String id;
+    private String _id;
 
-    public AlbumModel(String id, String title, String artist, String image) {
-        this.id = id;
+    public AlbumModel(String _id, String title, String artist, String image) {
+        this._id = _id;
         this.title = title;
         this.artist = artist;
         this.image = image;
@@ -35,7 +35,7 @@ public class AlbumModel implements Serializable {
 
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     @NotNull
@@ -45,7 +45,7 @@ public class AlbumModel implements Serializable {
                 "image='" + image + '\'' +
                 ", title='" + title + '\'' +
                 ", artist='" + artist + '\'' +
-                ", id='" + id + '\'' +
+                ", _id='" + _id + '\'' +
                 '}';
     }
 }

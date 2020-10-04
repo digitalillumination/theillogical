@@ -1,5 +1,6 @@
 package dev.doyeong.theillogical.ui.home;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,11 +9,14 @@ import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import dev.doyeong.theillogical.databinding.RowAlbumBinding;
 import dev.doyeong.theillogical.models.AlbumModel;
+import dev.doyeong.theillogical.ui.album.AlbumActivity;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
     private List<AlbumModel> list;
@@ -20,10 +24,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         list = new ArrayList<>();
     }
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder holder = new ViewHolder(RowAlbumBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-        return holder;
+        return new ViewHolder(RowAlbumBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -58,6 +62,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         }
         void bind(AlbumModel item) {
             binding.setAlbum(item);
+            binding.rowAlbum.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), AlbumActivity.class);
+
+                intent.putExtra("albumId", item.getId());
+                view.getContext().startActivity(intent);
+            });
         }
     }
 }

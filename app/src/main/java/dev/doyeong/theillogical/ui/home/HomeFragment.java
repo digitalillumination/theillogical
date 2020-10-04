@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
                     JSONArray data = object.getJSONArray("data");
                     Gson gson = new Gson();
 
+                    albumItems.clear();
                     for (int i = 0; i < data.length(); i++ ) {
                         JSONObject albumObject = data.getJSONObject(i);
                         AlbumModel album = gson.fromJson(albumObject.toString(), AlbumModel.class);
