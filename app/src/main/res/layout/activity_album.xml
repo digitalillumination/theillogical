@@ -65,6 +65,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/row_song"
                 app:items="@{songs}"
+                app:albumId="@{id}"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

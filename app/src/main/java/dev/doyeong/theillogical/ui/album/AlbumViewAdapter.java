@@ -1,7 +1,7 @@
 package dev.doyeong.theillogical.ui.album;
 
+import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.doyeong.theillogical.MusicManager;
 import dev.doyeong.theillogical.databinding.RowSongBinding;
 
 public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.ViewHolder> {
     private List<String> list;
+    private String albumId;
     public AlbumViewAdapter() {
         list = new ArrayList<>();
     }
@@ -28,14 +30,17 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(list.get(position), position + 1);
+        holder.bind(list.get(position), position + 1, this.albumId);
     }
 
     public void setList(List<String> list) {
         this.list = list;
         this.notifyDataSetChanged();
     }
-
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+        this.notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return list == null ? 0 : list.size();
@@ -47,6 +52,12 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.View
 
         if (adapter != null) adapter.setList(list);
     }
+    @BindingAdapter("albumId")
+    public static void bindItem(RecyclerView view, String albumId) {
+        AlbumViewAdapter adapter = (AlbumViewAdapter) view.getAdapter();
+
+        if (adapter != null) adapter.setAlbumId(albumId);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         RowSongBinding binding;
@@ -54,9 +65,16 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.View
             super(binding.getRoot());
             this.binding = binding;
         }
-        void bind(String item, int index) {
+        void bind(String item, int index, String albumId) {
             binding.setTitle(item);
             binding.setIndex(index);
+            binding.songLayout.setOnClickListener(view -> {
+                // TODO: Start music player service
+
+                Context context = binding.getRoot().getContext();
+
+                MusicManager.start(context, albumId, index);
+            });
         }
     }
 }

@@ -21,6 +21,11 @@ public interface APIInterface {
     Call<ResponseBody> getAlbum(
             @Path("id") String id
     );
+    @GET("api/v1/album/{id}/{index}")
+    Call<ResponseBody> getMusic(
+            @Path("id") String id,
+            @Path("index") int index
+    );
     @POST("api/v1/user")
     Call<ResponseBody> createUser(
             @Body SignUpRequestModel body

@@ -37,7 +37,7 @@ public class PlaylistFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_playlist, container, false);
-        binding.setIsLogin(APIUtils.isLogined(getContext()));
+        binding.setIsLogin(APIUtils.isLogined(context));
 
         Button loginButton = binding.playlistLoginBtn;
         loginButton.setOnClickListener(view -> {
@@ -45,6 +45,13 @@ public class PlaylistFragment extends Fragment {
             startActivity(intent);
         });
         return binding.getRoot();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        binding.setIsLogin(APIUtils.isLogined(context));
+
     }
 
     @Override

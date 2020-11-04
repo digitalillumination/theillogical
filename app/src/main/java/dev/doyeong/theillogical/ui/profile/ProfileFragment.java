@@ -63,6 +63,14 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        binding.setUser(APIUtils.getUser(context));
+
+    }
+
     private void setProfileImage(Uri uri) {
         Glide.with(this).load(uri).circleCrop().into(binding.imageProfile);
         if (uri.getPath() == null) return;
