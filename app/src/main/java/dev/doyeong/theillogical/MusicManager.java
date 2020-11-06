@@ -11,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dev.doyeong.theillogical.api.APIClient;
 import dev.doyeong.theillogical.api.APIInterface;
@@ -24,6 +26,7 @@ import retrofit2.Response;
 public class MusicManager {
     private static MediaPlayer player;
     private static ActivityMainBinding binding;
+    private static Timer timer = new Timer();
 
     private static JSONObject data;
     public static void start(Context context, String albumId, int index) {
@@ -42,6 +45,15 @@ public class MusicManager {
                 public void onPrepared(MediaPlayer player) {
                     player.start();
                     getDataAndBind(context, albumId, index);
+
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (binding == null) return;
+
+                            binding.setCurrentTime(getMillisToString(player.getCurrentPosition()));
+                        }
+                    }, player.getDuration() / 100, 100);
                 }
             });
 
@@ -52,6 +64,21 @@ public class MusicManager {
 
     public static void setMainActivityBinding(ActivityMainBinding binding) {
         MusicManager.binding = binding;
+
+        MusicManager.binding.setIsPlaying(player != null && player.isPlaying());
+        MusicManager.binding.mainPlayerController.setOnClickListener(view -> {
+            if (player == null) {
+                return;
+            }
+
+            MusicManager.binding.setIsPlaying(!player.isPlaying());
+
+            if (player.isPlaying()) {
+                player.pause();
+            } else {
+                player.start();
+            }
+        });
     }
 
     private static void getDataAndBind(Context context, String albumId, int index) {
@@ -84,6 +111,8 @@ public class MusicManager {
                     binding.setArtist(data.getJSONObject("by").getString("username"));
 
                     binding.setDuration(getMillisToString(player.getDuration()));
+                    binding.setImageId(data.getString("albumImage"));
+                    binding.setIsPlaying(player.isPlaying());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

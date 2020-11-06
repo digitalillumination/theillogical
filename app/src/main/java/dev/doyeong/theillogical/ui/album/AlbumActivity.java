@@ -49,6 +49,8 @@ public class AlbumActivity extends AppCompatActivity {
         binding.setSongs(songs);
 
         binding.setId(albumId);
+
+
     }
 
     @Override
