@@ -1,5 +1,6 @@
 package dev.doyeong.theillogical;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,6 +13,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import dev.doyeong.theillogical.databinding.ActivityMainBinding;
+import dev.doyeong.theillogical.music.MusicManager;
+import dev.doyeong.theillogical.ui.player.PlayerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         MusicManager.setMainActivityBinding(binding);
+
+        binding.player.setOnClickListener(view -> {
+           Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
+           startActivity(intent);
+        });
     }
 
 }

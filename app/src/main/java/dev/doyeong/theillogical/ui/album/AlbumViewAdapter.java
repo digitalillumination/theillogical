@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.doyeong.theillogical.MusicManager;
+import dev.doyeong.theillogical.music.MusicManager;
 import dev.doyeong.theillogical.databinding.RowSongBinding;
 
 public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.ViewHolder> {
