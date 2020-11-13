@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import dev.doyeong.theillogical.databinding.ActivityMainBinding;
+import dev.doyeong.theillogical.models.SongModel;
 import dev.doyeong.theillogical.music.MusicManager;
 import dev.doyeong.theillogical.ui.player.PlayerActivity;
 
@@ -32,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
-        MusicManager.setMainActivityBinding(binding);
+        MusicManager.setOnInformationReceivedListener(new MusicManager.OnInformationReceivedListener() {
+            @Override
+            public void onInformationReceived(SongModel song) {
+                binding.setSong(song);
+            }
+        });
 
         binding.player.setOnClickListener(view -> {
            Intent intent = new Intent(MainActivity.this, PlayerActivity.class);

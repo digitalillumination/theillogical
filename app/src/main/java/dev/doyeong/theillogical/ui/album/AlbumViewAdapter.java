@@ -73,7 +73,7 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.View
 
                 Context context = binding.getRoot().getContext();
 
-                MusicManager.start(context, albumId, index);
+                MusicManager.startMusic(context, albumId, index);
             });
         }
     }

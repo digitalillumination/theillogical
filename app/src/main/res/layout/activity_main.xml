@@ -3,20 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="title"
-            type="String" />
-        <variable
-            name="artist"
-            type="String" />
+        <import type="dev.doyeong.theillogical.models.SongModel" />
+        <variable name="song" type="SongModel" />
         <variable
             name="duration"
             type="String" />
         <variable
             name="currentTime"
-            type="String" />
-        <variable
-            name="imageId"
             type="String" />
         <variable
             name="isPlaying"
@@ -69,7 +62,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@android:color/darker_gray"
-                app:imageIdUrl="@{imageId}"
+                app:imageIdUrl="@{song.albumImage}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -85,7 +78,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{title}"
+                    android:text="@{song.title}"
                     android:textColor="#000000"
                     android:textStyle="bold" />
 
@@ -96,7 +89,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{artist}"
+                        android:text="@{song.by.username}"
                         android:textSize="10sp"/>
                     <TextView
                         android:layout_width="wrap_content"
