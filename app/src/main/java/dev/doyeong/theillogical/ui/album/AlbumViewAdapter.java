@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.doyeong.theillogical.music.Music;
 import dev.doyeong.theillogical.music.MusicManager;
 import dev.doyeong.theillogical.databinding.RowSongBinding;
 
@@ -73,7 +74,8 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.View
 
                 Context context = binding.getRoot().getContext();
 
-                MusicManager.startMusic(context, albumId, index);
+                Music music = new Music(albumId, index);
+                MusicManager.startMusic(context, music);
             });
         }
     }

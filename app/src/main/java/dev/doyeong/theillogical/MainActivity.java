@@ -38,8 +38,25 @@ public class MainActivity extends AppCompatActivity {
             public void onInformationReceived(SongModel song) {
                 binding.setSong(song);
             }
+
+            @Override
+            public void onDurationReceived(int duration) {
+                binding.setDuration(MusicManager.getTimeString(duration));
+            }
+
+            @Override
+            public void onIsPlayingChanged(boolean isPlaying) {
+                binding.setIsPlaying(isPlaying);
+            }
         });
 
+        MusicManager.setOnTimeUpdateListener(time -> {
+            binding.setCurrentTime(MusicManager.getTimeString(time));
+        });
+
+        binding.mainPlayerController.setOnClickListener(view -> {
+            MusicManager.setIsPlaying(!MusicManager.getIsPlaying());
+        });
         binding.player.setOnClickListener(view -> {
            Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
            startActivity(intent);
