@@ -4,9 +4,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 tools:context=".ui.player.PlayerActivity">
     <data>
-        <variable name="title" type="String" />
-        <variable name="artist" type="String" />
-        <variable name="albumImageId" type="String" />
+        <import type="dev.doyeong.theillogical.models.SongModel" />
+        <import type="dev.doyeong.theillogical.music.MusicManager" />
+        <variable name="song" type="SongModel" />
+        <variable name="isPlaying" type="boolean" />
+        <variable name="duration" type="int" />
+        <variable name="currentTime" type="int" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +23,7 @@ tools:context=".ui.player.PlayerActivity">
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="50dp"
             android:background="@android:color/darker_gray"
-            app:imageIdUrl="@{albumImageId}"
+            app:imageIdUrl="@{song.albumImage}"
             />
 
         <TextView
@@ -33,7 +36,7 @@ tools:context=".ui.player.PlayerActivity">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"
-            android:text="@{title}"
+            android:text="@{song.title}"
         />
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +46,50 @@ tools:context=".ui.player.PlayerActivity">
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="8dp"
-            android:text="@{artist}"
+            android:text="@{song.by.username}"
+            />
+
+        <ImageView
+            android:id="@+id/player_play_btn"
+            app:layout_constraintTop_toBottomOf="@id/player_artist_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="?selectableItemBackground"
+            android:src="@{isPlaying ? @drawable/ic_baseline_pause_24 : @drawable/ic_baseline_play_arrow_24 }"
+            android:layout_width="36dp"
+            android:layout_height="36dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/player_timestamps"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_play_btn"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{MusicManager.getTimeString(currentTime)}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{MusicManager.getTimeString(duration)}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="@{duration}"
+            android:progress="@{currentTime}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_timestamps"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

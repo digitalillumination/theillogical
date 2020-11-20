@@ -13,16 +13,21 @@ public class MusicManager {
     private static List<OnTimeUpdateListener> updateListeners = new ArrayList<>();
     private static int position = 0;
     private static boolean isPlaying = false;
+    private static SongModel songInfo;
 
     public static void startMusic(Context context, Music music) {
         if (!musicQueue.isEmpty()) {
             musicQueue.get(position).stopPlay();
         }
+
+        songInfo = null;
+
         music.createMediaPlayer(context);
         music.getData(context);
         music.setOnInformationReceivedListener(song -> {
             for (OnInformationReceivedListener listener : listeners) {
                 listener.onInformationReceived(song);
+                songInfo = song;
             }
         });
         music.getMediaPlayer().setOnPreparedListener(player -> {
@@ -43,6 +48,13 @@ public class MusicManager {
         position = musicQueue.size() - 1;
     }
     public static void setOnInformationReceivedListener(OnInformationReceivedListener listener) {
+        if (musicQueue.size() > 0 && musicQueue.get(position) != null && musicQueue.get(position).getMediaPlayer() != null) {
+            listener.onDurationReceived(musicQueue.get(position).getMediaPlayer().getDuration());
+        }
+        if (songInfo != null) {
+            listener.onInformationReceived(songInfo);
+        }
+        listener.onIsPlayingChanged(isPlaying);
         listeners.add(listener);
     }
     public static void setOnTimeUpdateListener(OnTimeUpdateListener listener) {
