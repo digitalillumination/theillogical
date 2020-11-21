@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.widget.SeekBar;
 
 import dev.doyeong.theillogical.R;
 import dev.doyeong.theillogical.databinding.ActivityPlayerBinding;
@@ -12,6 +13,7 @@ import dev.doyeong.theillogical.music.MusicManager;
 
 public class PlayerActivity extends AppCompatActivity {
 
+    private boolean isSeeking = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +35,30 @@ public class PlayerActivity extends AppCompatActivity {
                 binding.setIsPlaying(isPlaying);
             }
         });
-        MusicManager.setOnTimeUpdateListener(binding::setCurrentTime);
+        MusicManager.setOnTimeUpdateListener(time -> {
+            if (isSeeking) return;
+            binding.setCurrentTime(time);
+        });
         binding.playerPlayBtn.setOnClickListener(view -> {
             MusicManager.setIsPlaying(!MusicManager.getIsPlaying());
+        });
+        binding.playerSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                isSeeking = true;
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                isSeeking = false;
+                if (MusicManager.getCurrentMusic() == null) return;
+                MusicManager.getCurrentMusic().getMediaPlayer().seekTo(seekBar.getProgress());
+            }
         });
 
     }

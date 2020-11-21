@@ -71,10 +71,10 @@ public class MusicManager {
     public static void setIsPlaying(boolean isPlaying) {
         MusicManager.isPlaying = isPlaying;
 
-        if (isPlaying) {
-            musicQueue.get(position).getMediaPlayer().start();
-        } else {
-            musicQueue.get(position).getMediaPlayer().pause();
+        if (isPlaying && getCurrentMusic() != null) {
+            getCurrentMusic().getMediaPlayer().start();
+        } else if (getCurrentMusic() != null) {
+            getCurrentMusic().getMediaPlayer().pause();
         }
 
         for (OnInformationReceivedListener listener : listeners) {
@@ -83,6 +83,9 @@ public class MusicManager {
     }
     public static boolean getIsPlaying() {
         return isPlaying;
+    }
+    public static Music getCurrentMusic() {
+        return musicQueue.size() > 0 ? musicQueue.get(position) : null;
     }
 
     public static interface OnInformationReceivedListener extends EventListener {
