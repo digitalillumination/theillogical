@@ -65,5 +65,11 @@ public class PlayerActivity extends AppCompatActivity {
             Intent intent = new Intent(PlayerActivity.this, PlaylistActivity.class);
             startActivity(intent);
         });
+        binding.playerPrevBtn.setOnClickListener(view -> {
+            MusicManager.prevSong(this);
+        });
+        binding.playerNextBtn.setOnClickListener(view -> {
+            MusicManager.nextSong(this);
+        });
     }
 }

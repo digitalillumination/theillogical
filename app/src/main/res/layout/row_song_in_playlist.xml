@@ -6,6 +6,9 @@
         <variable
             name="song"
             type="SongModel" />
+        <variable
+            name="isPlaying"
+            type="boolean" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -28,8 +31,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:text="@{song.title}"
+                android:textColor="@{isPlaying ? @color/colorPrimary : @android:color/black}"
                 />
             <TextView
                 android:layout_width="wrap_content"

@@ -32,6 +32,13 @@
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:layout_marginStart="24dp"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:id="@+id/song_add_queue"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_add_24"
             />
     </LinearLayout>
 </layout>

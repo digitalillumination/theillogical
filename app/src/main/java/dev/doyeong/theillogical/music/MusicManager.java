@@ -20,6 +20,7 @@ public class MusicManager {
 
     public static void startMusic(Context context, Music music) {
         addQueue(context, music);
+        stopPlay();
         position = musicQueue.size() - 1;
         startPlay(context);
     }
@@ -28,11 +29,12 @@ public class MusicManager {
         music.getData(context);
         musicQueue.add(music);
     }
-    public static void startPlay(Context context) {
+    public static void stopPlay() {
         if (!musicQueue.isEmpty()) {
             musicQueue.get(position).stopPlay();
         }
-
+    }
+    public static void startPlay(Context context) {
         Music music = musicQueue.get(position);
         songInfo = null;
 
@@ -51,6 +53,13 @@ public class MusicManager {
             }
 
             setIsPlaying(true);
+        });
+        music.getMediaPlayer().setOnCompletionListener(player -> {
+            stopPlay();
+            if (musicQueue.size() > position + 1) {
+                position++;
+                startPlay(context);
+            }
         });
         music.setOnTimeUpdateListener(time -> {
             for (OnTimeUpdateListener listener : updateListeners) {
@@ -91,6 +100,18 @@ public class MusicManager {
         for (OnInformationReceivedListener listener : listeners) {
             listener.onIsPlayingChanged(isPlaying);
         }
+    }
+    public static void nextSong(Context context) {
+        if (position + 1 >= musicQueue.size()) return;
+        stopPlay();
+        position++;
+        startPlay(context);
+    }
+    public static void prevSong(Context context) {
+        if (position - 1 < 0) return;
+        stopPlay();
+        position--;
+        startPlay(context);
     }
     public static boolean getIsPlaying() {
         return isPlaying;

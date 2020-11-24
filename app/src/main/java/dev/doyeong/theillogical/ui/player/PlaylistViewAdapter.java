@@ -51,12 +51,11 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(MusicManager.getMusicQueue().get(position));
+        holder.bind(MusicManager.getMusicQueue().get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        System.out.println(MusicManager.getMusicQueue());
         return MusicManager.getMusicQueue().size();
     }
 
@@ -66,9 +65,10 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
             super(binding.getRoot());
             this.binding = binding;
         }
-        public void bind(Music music) {
+        public void bind(Music music, int position) {
             music.setOnInformationReceivedListener(song -> {
                 binding.setSong(song);
+                binding.setIsPlaying(MusicManager.getPosition() == position);
             });
         }
     }

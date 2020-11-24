@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.doyeong.theillogical.databinding.RowSongBinding;
 import dev.doyeong.theillogical.music.Music;
 import dev.doyeong.theillogical.music.MusicManager;
-import dev.doyeong.theillogical.databinding.RowSongBinding;
 
 public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.ViewHolder> {
     private List<String> list;
@@ -69,13 +69,18 @@ public class AlbumViewAdapter extends RecyclerView.Adapter<AlbumViewAdapter.View
         void bind(String item, int index, String albumId) {
             binding.setTitle(item);
             binding.setIndex(index);
-            binding.songLayout.setOnClickListener(view -> {
-                // TODO: Start music player service
 
+            binding.songLayout.setOnClickListener(view -> {
                 Context context = binding.getRoot().getContext();
 
                 Music music = new Music(albumId, index);
                 MusicManager.startMusic(context, music);
+            });
+            binding.songAddQueue.setOnClickListener(view -> {
+                Context context = binding.getRoot().getContext();
+
+                Music music = new Music(albumId, index);
+                MusicManager.addQueue(context, music);
             });
         }
     }

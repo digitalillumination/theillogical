@@ -66,7 +66,8 @@ public class Music {
                     e.printStackTrace();
                 }
 
-                listener.onDataReceived(song);
+                if (listener != null)
+                    listener.onDataReceived(song);
             }
 
             @Override
@@ -83,7 +84,6 @@ public class Music {
         if (player == null) return;
 
         handler.removeCallbacksAndMessages(null);
-        handler = null;
         player.stop();
         player.release();
     }
