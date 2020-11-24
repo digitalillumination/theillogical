@@ -2,13 +2,16 @@ package dev.doyeong.theillogical.music;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
+import androidx.databinding.ObservableArrayList;
+
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 import dev.doyeong.theillogical.models.SongModel;
 
 public class MusicManager {
-    private static List<Music> musicQueue = new ArrayList<>();
+    private static ObservableArrayList<Music> musicQueue = new ObservableArrayList<>();
     private static List<OnInformationReceivedListener> listeners = new ArrayList<>();
     private static List<OnTimeUpdateListener> updateListeners = new ArrayList<>();
     private static int position = 0;
@@ -16,10 +19,21 @@ public class MusicManager {
     private static SongModel songInfo;
 
     public static void startMusic(Context context, Music music) {
+        addQueue(context, music);
+        position = musicQueue.size() - 1;
+        startPlay(context);
+    }
+
+    public static void addQueue(Context context, Music music) {
+        music.getData(context);
+        musicQueue.add(music);
+    }
+    public static void startPlay(Context context) {
         if (!musicQueue.isEmpty()) {
             musicQueue.get(position).stopPlay();
         }
 
+        Music music = musicQueue.get(position);
         songInfo = null;
 
         music.createMediaPlayer(context);
@@ -43,9 +57,6 @@ public class MusicManager {
                 listener.onTimeUpdate(time);
             }
         });
-
-        musicQueue.add(music);
-        position = musicQueue.size() - 1;
     }
     public static void setOnInformationReceivedListener(OnInformationReceivedListener listener) {
         if (musicQueue.size() > 0 && musicQueue.get(position) != null && musicQueue.get(position).getMediaPlayer() != null) {
@@ -86,6 +97,14 @@ public class MusicManager {
     }
     public static Music getCurrentMusic() {
         return musicQueue.size() > 0 ? musicQueue.get(position) : null;
+    }
+
+    public static ObservableArrayList<Music> getMusicQueue() {
+        return musicQueue;
+    }
+
+    public static int getPosition() {
+        return position;
     }
 
     public static interface OnInformationReceivedListener extends EventListener {

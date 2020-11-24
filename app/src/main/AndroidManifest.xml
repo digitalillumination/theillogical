@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.player.PlaylistActivity"></activity>
         <activity android:name=".ui.player.PlayerActivity" />
         <activity android:name=".ui.album.AlbumActivity" />
         <activity android:name=".ui.login.SignupActivity" />

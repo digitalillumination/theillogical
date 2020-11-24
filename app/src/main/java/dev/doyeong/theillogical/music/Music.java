@@ -29,6 +29,8 @@ public class Music {
     private Music.OnDataReceivedListener listener;
     private Music.OnTimeUpdateListener updateListener;
     private Handler handler = new Handler();
+    private SongModel song = null;
+
 
     public Music(String albumId, int index) {
         this.albumId = albumId;
@@ -56,7 +58,6 @@ public class Music {
                 if (!response.isSuccessful() || response.body() == null) {
                     return;
                 }
-                SongModel song = null;
                 try {
                     JSONObject data = new JSONObject(response.body().string()).getJSONObject("data");
                     Gson gson = new Gson();
@@ -75,10 +76,14 @@ public class Music {
         });
     }
 
+    public SongModel getSong() {
+        return song;
+    }
     public void stopPlay() {
+        if (player == null) return;
+
         handler.removeCallbacksAndMessages(null);
         handler = null;
-
         player.stop();
         player.release();
     }
@@ -98,6 +103,10 @@ public class Music {
 
     public void setOnInformationReceivedListener(OnDataReceivedListener listener) {
         this.listener = listener;
+
+        if (song != null) {
+            this.listener.onDataReceived(song);
+        }
     }
 
     public void setOnTimeUpdateListener(OnTimeUpdateListener listener) {

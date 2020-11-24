@@ -3,6 +3,7 @@ package dev.doyeong.theillogical.ui.player;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
@@ -60,6 +61,9 @@ public class PlayerActivity extends AppCompatActivity {
                 MusicManager.getCurrentMusic().getMediaPlayer().seekTo(seekBar.getProgress());
             }
         });
-
+        binding.playerViewPlaylistBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(PlayerActivity.this, PlaylistActivity.class);
+            startActivity(intent);
+        });
     }
 }
