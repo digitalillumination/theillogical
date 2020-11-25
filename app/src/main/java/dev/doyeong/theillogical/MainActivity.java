@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.mainPlayerController.setOnClickListener(view -> {
-            MusicManager.setIsPlaying(!MusicManager.getIsPlaying());
+            MusicManager.setIsPlaying(this, !MusicManager.getIsPlaying());
         });
         binding.player.setOnClickListener(view -> {
            Intent intent = new Intent(MainActivity.this, PlayerActivity.class);

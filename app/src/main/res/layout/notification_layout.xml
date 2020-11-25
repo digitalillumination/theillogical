@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="dev.doyeong.theillogical.models.SongModel" />
+        <variable
+            name="song"
+            type="SongModel" />
+        <variable
+            name="isPlaying"
+            type="boolean" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:paddingHorizontal="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/darker_gray"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@{song.title}"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{song.by.username}"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/noti_player_prev"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_baseline_skip_previous_24" />
+            <ImageButton
+                android:id="@+id/noti_player_play_or_pause"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@{isPlaying ? @drawable/ic_baseline_pause_24 : @drawable/ic_baseline_play_arrow_24}" />
+            <ImageButton
+                android:id="@+id/noti_player_next"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_baseline_skip_next_24" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

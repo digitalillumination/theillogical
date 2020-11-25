@@ -17,6 +17,7 @@ public class MusicManager {
     private static int position = 0;
     private static boolean isPlaying = false;
     private static SongModel songInfo;
+    private static boolean isPrepared;
 
     public static void startMusic(Context context, Music music) {
         addQueue(context, music);
@@ -37,6 +38,7 @@ public class MusicManager {
     public static void startPlay(Context context) {
         Music music = musicQueue.get(position);
         songInfo = null;
+        isPrepared = false;
 
         music.createMediaPlayer(context);
         music.getData(context);
@@ -47,12 +49,13 @@ public class MusicManager {
             }
         });
         music.getMediaPlayer().setOnPreparedListener(player -> {
+            isPrepared = true;
             for (OnInformationReceivedListener listener : listeners) {
                 listener.onDurationReceived(player.getDuration());
                 listener.onIsPlayingChanged(true);
             }
 
-            setIsPlaying(true);
+            setIsPlaying(context, true);
         });
         music.getMediaPlayer().setOnCompletionListener(player -> {
             stopPlay();
@@ -88,12 +91,16 @@ public class MusicManager {
         return String.format("%02d:%02d", sec / 60, sec % 60);
     }
 
-    public static void setIsPlaying(boolean isPlaying) {
+    public static void setIsPlaying(Context context, boolean isPlaying) {
+        if (getCurrentMusic() == null || getCurrentMusic().getMediaPlayer() == null || !isPrepared) {
+            MusicManager.startPlay(context);
+            return;
+        };
         MusicManager.isPlaying = isPlaying;
 
-        if (isPlaying && getCurrentMusic() != null) {
+        if (isPlaying) {
             getCurrentMusic().getMediaPlayer().start();
-        } else if (getCurrentMusic() != null) {
+        } else  {
             getCurrentMusic().getMediaPlayer().pause();
         }
 
@@ -111,6 +118,11 @@ public class MusicManager {
         if (position - 1 < 0) return;
         stopPlay();
         position--;
+        startPlay(context);
+    }
+    public static void setPositionAndPlay(Context context, int position) {
+        stopPlay();
+        MusicManager.position = position;
         startPlay(context);
     }
     public static boolean getIsPlaying() {

@@ -9,6 +9,7 @@ import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.RecyclerView;
 
 import dev.doyeong.theillogical.databinding.RowSongInPlaylistBinding;
+import dev.doyeong.theillogical.models.SongModel;
 import dev.doyeong.theillogical.music.Music;
 import dev.doyeong.theillogical.music.MusicManager;
 
@@ -69,6 +70,26 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
             music.setOnInformationReceivedListener(song -> {
                 binding.setSong(song);
                 binding.setIsPlaying(MusicManager.getPosition() == position);
+            });
+
+            MusicManager.setOnInformationReceivedListener(new MusicManager.OnInformationReceivedListener() {
+                @Override
+                public void onInformationReceived(SongModel song) {
+                    binding.setIsPlaying(MusicManager.getPosition() == position);
+                }
+
+                @Override
+                public void onDurationReceived(int duration) {
+
+                }
+
+                @Override
+                public void onIsPlayingChanged(boolean isPlaying) {
+
+                }
+            });
+            binding.getRoot().setOnClickListener(view -> {
+                MusicManager.setPositionAndPlay(binding.getRoot().getContext(), position);
             });
         }
     }

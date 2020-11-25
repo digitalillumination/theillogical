@@ -41,7 +41,7 @@ public class PlayerActivity extends AppCompatActivity {
             binding.setCurrentTime(time);
         });
         binding.playerPlayBtn.setOnClickListener(view -> {
-            MusicManager.setIsPlaying(!MusicManager.getIsPlaying());
+            MusicManager.setIsPlaying(this, !MusicManager.getIsPlaying());
         });
         binding.playerSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

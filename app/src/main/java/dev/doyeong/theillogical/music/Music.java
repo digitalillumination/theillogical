@@ -25,6 +25,7 @@ import retrofit2.Response;
 public class Music {
     private String albumId;
     private int index;
+
     private MediaPlayer player;
     private Music.OnDataReceivedListener listener;
     private Music.OnTimeUpdateListener updateListener;
